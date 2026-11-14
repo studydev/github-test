@@ -1,15 +1,82 @@
 {
   "source": "연습용 예시 데이터 (직접 입력)",
   "places": [
-    {"region": "서울", "name": "서울숲", "desc": "산책과 피크닉", "indoor": false},
-    {"region": "서울", "name": "국립중앙박물관", "desc": "비 와도 좋은 실내 전시", "indoor": true},
-    {"region": "서울", "name": "북촌한옥마을", "desc": "한옥 골목 걷기", "indoor": false},
-    {"region": "서울", "name": "코엑스 아쿠아리움", "desc": "아이와 함께 실내 나들이", "indoor": true},
-    {"region": "부산", "name": "해운대해수욕장", "desc": "바다 산책", "indoor": false},
-    {"region": "부산", "name": "부산시립미술관", "desc": "실내 전시", "indoor": true},
-    {"region": "부산", "name": "감천문화마을", "desc": "알록달록 언덕 마을", "indoor": false},
-    {"region": "강릉", "name": "경포해변", "desc": "바다와 호수", "indoor": false},
-    {"region": "강릉", "name": "오죽헌", "desc": "역사 유적", "indoor": false},
-    {"region": "강릉", "name": "안목 커피거리", "desc": "바다 앞 카페", "indoor": false}
+    {
+      "region": "서울",
+      "name": "서울숲",
+      "desc": "산책과 피크닉",
+      "indoor": false
+    },
+    {
+      "region": "서울",
+      "name": "국립중앙박물관",
+      "desc": "비 와도 좋은 실내 전시",
+      "indoor": true
+    },
+    {
+      "region": "서울",
+      "name": "북촌한옥마을",
+      "desc": "한옥 골목 걷기",
+      "indoor": false
+    },
+    {
+      "region": "서울",
+      "name": "코엑스 아쿠아리움",
+      "desc": "아이와 함께 실내 나들이",
+      "indoor": true
+    },
+    {
+      "region": "부산",
+      "name": "해운대해수욕장",
+      "desc": "바다 산책",
+      "indoor": false
+    },
+    {
+      "region": "부산",
+      "name": "부산시립미술관",
+      "desc": "실내 전시",
+      "indoor": true
+    },
+    {
+      "region": "부산",
+      "name": "감천문화마을",
+      "desc": "알록달록 언덕 마을",
+      "indoor": false
+    },
+    {
+      "region": "강릉",
+      "name": "경포해변",
+      "desc": "바다와 호수",
+      "indoor": false
+    },
+    {
+      "region": "강릉",
+      "name": "오죽헌",
+      "desc": "역사 유적",
+      "indoor": false
+    },
+    {
+      "region": "강릉",
+      "name": "안목 커피거리",
+      "desc": "바다 앞 카페",
+      "indoor": false
+    },
+    {
+      "region": "제주",
+      "name": "우도",
+      "desc": "자전거로 한 바퀴"
+    },
+    {
+      "region": "제주",
+      "name": "성산일출봉",
+      "desc": "해 뜨는 오름",
+      "indoor": false
+    },
+    {
+      "region": "제주",
+      "name": "아쿠아플라넷 제주",
+      "desc": "비 와도 좋은 실내 수족관",
+      "indoor": true
+    }
   ]
 }
