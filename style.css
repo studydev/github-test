@@ -1,0 +1,12 @@
+body { margin: 0; font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; background: #f6f7f9; color: #1f2328; }
+main { max-width: 560px; margin: 0 auto; padding: 24px 16px; }
+h1 { margin: 0 0 4px; }
+.lead { color: #5d6670; margin: 0 0 16px; }
+.regions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.regions button { border: 1px solid #d0d7de; background: #fff; border-radius: 999px; padding: 6px 14px; font: inherit; cursor: pointer; }
+.regions button[aria-pressed="true"] { background: #1f2328; color: #fff; }
+.cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.cards li { background: #fff; border: 1px solid #e3e6ea; border-radius: 10px; padding: 12px 14px; }
+.cards b { display: block; font-size: 17px; }
+.cards span { color: #5d6670; font-size: 14px; }
+.source { color: #8c959f; font-size: 12px; margin-top: 16px; }
