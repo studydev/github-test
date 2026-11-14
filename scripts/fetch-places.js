@@ -40,8 +40,9 @@ const call = params => api('areaBasedList2', {numOfRows: '30', pageNo: '1', arra
 // 시·도 안에서 시·군 이름으로 lDongSignguCd 를 찾는다
 async function signguCode(lDongRegnCd, name) {
   const items = await api('ldongCode2', {lDongRegnCd, numOfRows: '100', pageNo: '1'});
-  const hit = items.find(it => Object.values(it).some(v => String(v).trim() === name));
-  const code = hit && Object.entries(hit).find(([k]) => /signgu.*cd/i.test(k))?.[1];
+  // 응답 항목 모양: {rnum, code, name} (예: {"code":"110","name":"춘천시"})
+  const hit = items.find(it => String(it.name ?? '').trim() === name);
+  const code = hit?.code;
   if (!code) throw new Error(`${name} 의 시군구 코드를 찾지 못함 (응답 ${items.length}건, 항목 예: ${JSON.stringify(items[0] || {})})`);
   return String(code);
 }
