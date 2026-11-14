@@ -11,3 +11,4 @@ h1 { margin: 0 0 4px; }
 .cards span { color: #5d6670; font-size: 14px; }
 .source { color: #8c959f; font-size: 12px; margin-top: 16px; }
 .cards a { font-size: 13px; color: #0969da; }
+.rain { display: inline-flex; gap: 6px; align-items: center; margin-bottom: 14px; font-size: 14px; }

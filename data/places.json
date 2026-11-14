@@ -78,6 +78,27 @@
       "name": "아쿠아플라넷 제주",
       "desc": "비 와도 좋은 실내 수족관",
       "indoor": true
+    },
+    {
+      "region": "서울",
+      "name": "롯데월드 아쿠아리움",
+      "desc": "실내 수족관",
+      "indoor": true,
+      "homepage": "http://www.lotteworld.com"
+    },
+    {
+      "region": "부산",
+      "name": "국립부산과학관",
+      "desc": "체험형 과학관",
+      "indoor": true,
+      "homepage": "https://www.sciport.or.kr"
+    },
+    {
+      "region": "강릉",
+      "name": "아르떼뮤지엄 강릉",
+      "desc": "미디어아트 전시",
+      "indoor": true,
+      "homepage": "https://artemuseum.com"
     }
   ]
 }
