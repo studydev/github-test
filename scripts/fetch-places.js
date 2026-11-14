@@ -8,13 +8,13 @@ if (!raw) { console.error('TOUR_API_KEY 비밀값이 없습니다. 저장소 Set
 const key = raw.includes('%') ? decodeURIComponent(raw) : raw; // Encoding 키를 넣었어도 동작하게
 const OUT = process.argv[2] || 'data/places.json';
 
-// 주말 여행지로 많이 가는 곳. lDongRegnCd = 시·도 법정동 코드, lDongSignguCd = 시·군·구 코드
+// 주말 여행지로 많이 가는 곳. lDongRegnCd = 시·도 법정동 코드. 시·군은 이름(signgu)으로 법정동 코드 조회(ldongCode2)에서 찾는다.
 const REGIONS = [
   {region: '서울', lDongRegnCd: '11'},
   {region: '부산', lDongRegnCd: '26'},
-  {region: '강릉', lDongRegnCd: '51', lDongSignguCd: '150'},
-  {region: '경주', lDongRegnCd: '47', lDongSignguCd: '130'},
-  {region: '여수', lDongRegnCd: '46', lDongSignguCd: '130'},
+  {region: '강릉', lDongRegnCd: '51', signgu: '강릉시'},
+  {region: '경주', lDongRegnCd: '47', signgu: '경주시'},
+  {region: '여수', lDongRegnCd: '46', signgu: '여수시'},
   {region: '제주', lDongRegnCd: '50'},
 ];
 const TYPES = [{contentTypeId: '12', type: '관광지'}, {contentTypeId: '14', type: '문화시설'}];
@@ -24,16 +24,26 @@ const SKIP = /의거지|추념탑|기념비|표지석|비석|유허비|순국|�
 const INDOOR = /박물관|미술관|기념관|과학관|전시관|아쿠아리움|아쿠아플라넷|수족관|워터파크|아쿠아나|갤러리|도서관|공연장|극장|체험관|실내/;
 const OUTDOOR = /해변|해수욕장|공원|산$|오름|계곡|폭포|숲|길$|마을|섬$|해안/;
 
-async function call(params) {
-  const q = new URLSearchParams({serviceKey: key, MobileOS: 'ETC', MobileApp: 'weekend-places', _type: 'json', numOfRows: '30', pageNo: '1', arrange: 'Q', ...params});
-  const res = await fetch(`https://apis.data.go.kr/B551011/KorService2/areaBasedList2?${q}`);
+async function api(operation, params) {
+  const q = new URLSearchParams({serviceKey: key, MobileOS: 'ETC', MobileApp: 'weekend-places', _type: 'json', ...params});
+  const res = await fetch(`https://apis.data.go.kr/B551011/KorService2/${operation}?${q}`);
   const text = await res.text();
   let json;
-  try { json = JSON.parse(text); } catch { throw new Error(`JSON 이 아닌 응답 (HTTP ${res.status}): ${text.slice(0, 300)}`); }
+  try { json = JSON.parse(text); } catch { throw new Error(`${operation}: JSON 이 아닌 응답 (HTTP ${res.status}): ${text.slice(0, 300)}`); }
   const header = json.response?.header;
-  if (header?.resultCode !== '0000') throw new Error(`API 오류 ${header?.resultCode}: ${header?.resultMsg}`);
+  if (header?.resultCode !== '0000') throw new Error(`${operation}: API 오류 ${header?.resultCode}: ${header?.resultMsg}`);
   const item = json.response.body?.items?.item;
   return Array.isArray(item) ? item : item ? [item] : [];
+}
+const call = params => api('areaBasedList2', {numOfRows: '30', pageNo: '1', arrange: 'Q', ...params});
+
+// 시·도 안에서 시·군 이름으로 lDongSignguCd 를 찾는다
+async function signguCode(lDongRegnCd, name) {
+  const items = await api('ldongCode2', {lDongRegnCd, numOfRows: '100', pageNo: '1'});
+  const hit = items.find(it => Object.values(it).some(v => String(v).trim() === name));
+  const code = hit && Object.entries(hit).find(([k]) => /signgu.*cd/i.test(k))?.[1];
+  if (!code) throw new Error(`${name} 의 시군구 코드를 찾지 못함 (응답 ${items.length}건, 항목 예: ${JSON.stringify(items[0] || {})})`);
+  return String(code);
 }
 
 const https = url => (url || '').replace(/^http:\/\//, 'https://');
@@ -47,7 +57,8 @@ function indoorOf(name, type) {
 (async () => {
   const places = [], seen = new Set();
   for (const r of REGIONS) {
-    const {region, ...area} = r;
+    const {region, signgu, ...area} = r;
+    if (signgu) { area.lDongSignguCd = await signguCode(area.lDongRegnCd, signgu); console.log(`${signgu} 시군구 코드: ${area.lDongSignguCd}`); }
     for (const t of TYPES) {
       const items = await call({...area, contentTypeId: t.contentTypeId});
       let kept = 0;
