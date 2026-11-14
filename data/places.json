@@ -64,7 +64,8 @@
     {
       "region": "제주",
       "name": "우도",
-      "desc": "자전거로 한 바퀴"
+      "desc": "자전거로 한 바퀴",
+      "indoor": false
     },
     {
       "region": "제주",
