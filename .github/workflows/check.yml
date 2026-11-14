@@ -6,9 +6,17 @@ on:
 jobs:
   data:
     runs-on: ubuntu-latest
+    env:
+      HAS_KEY: ${{ secrets.TOUR_API_KEY != '' }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - run: node scripts/check-data.js
+      - name: 저장소의 연습용 데이터 검사
+        run: node scripts/check-data.js
+      - name: 실제 공공 데이터로도 검사 (비밀값이 있을 때만)
+        if: env.HAS_KEY == 'true'
+        env:
+          TOUR_API_KEY: ${{ secrets.TOUR_API_KEY }}
+        run: node scripts/fetch-places.js "$RUNNER_TEMP/live.json" && node scripts/check-data.js "$RUNNER_TEMP/live.json"
