@@ -4,101 +4,107 @@
     {
       "region": "서울",
       "name": "서울숲",
-      "desc": "산책과 피크닉",
-      "indoor": false
+      "indoor": false,
+      "addr": "산책과 피크닉"
     },
     {
       "region": "서울",
       "name": "국립중앙박물관",
-      "desc": "비 와도 좋은 실내 전시",
-      "indoor": true
+      "indoor": true,
+      "addr": "비 와도 좋은 실내 전시"
     },
     {
       "region": "서울",
       "name": "북촌한옥마을",
-      "desc": "한옥 골목 걷기",
-      "indoor": false
+      "indoor": false,
+      "addr": "한옥 골목 걷기"
     },
     {
       "region": "서울",
       "name": "코엑스 아쿠아리움",
-      "desc": "아이와 함께 실내 나들이",
-      "indoor": true
+      "indoor": true,
+      "addr": "아이와 함께 실내 나들이"
     },
     {
       "region": "부산",
       "name": "해운대해수욕장",
-      "desc": "바다 산책",
-      "indoor": false
+      "indoor": false,
+      "addr": "바다 산책"
     },
     {
       "region": "부산",
       "name": "부산시립미술관",
-      "desc": "실내 전시",
-      "indoor": true
+      "indoor": true,
+      "addr": "실내 전시"
     },
     {
       "region": "부산",
       "name": "감천문화마을",
-      "desc": "알록달록 언덕 마을",
-      "indoor": false
+      "indoor": false,
+      "addr": "알록달록 언덕 마을"
     },
     {
       "region": "강릉",
       "name": "경포해변",
-      "desc": "바다와 호수",
-      "indoor": false
+      "indoor": false,
+      "addr": "바다와 호수"
     },
     {
       "region": "강릉",
       "name": "오죽헌",
-      "desc": "역사 유적",
-      "indoor": false
+      "indoor": false,
+      "addr": "역사 유적"
     },
     {
       "region": "강릉",
       "name": "안목 커피거리",
-      "desc": "바다 앞 카페",
-      "indoor": false
+      "indoor": false,
+      "addr": "바다 앞 카페"
     },
     {
       "region": "제주",
       "name": "우도",
-      "desc": "자전거로 한 바퀴",
-      "indoor": false
+      "indoor": false,
+      "addr": "자전거로 한 바퀴"
     },
     {
       "region": "제주",
       "name": "성산일출봉",
-      "desc": "해 뜨는 오름",
-      "indoor": false
+      "indoor": false,
+      "addr": "해 뜨는 오름"
     },
     {
       "region": "제주",
       "name": "아쿠아플라넷 제주",
-      "desc": "비 와도 좋은 실내 수족관",
-      "indoor": true
+      "indoor": true,
+      "addr": "비 와도 좋은 실내 수족관"
     },
     {
       "region": "서울",
       "name": "롯데월드 아쿠아리움",
-      "desc": "실내 수족관",
       "indoor": true,
-      "homepage": "https://www.lotteworld.com"
+      "homepage": "https://www.lotteworld.com",
+      "addr": "실내 수족관"
     },
     {
       "region": "부산",
       "name": "국립부산과학관",
-      "desc": "체험형 과학관",
       "indoor": true,
-      "homepage": "https://www.sciport.or.kr"
+      "homepage": "https://www.sciport.or.kr",
+      "addr": "체험형 과학관"
     },
     {
       "region": "강릉",
       "name": "아르떼뮤지엄 강릉",
-      "desc": "미디어아트 전시",
       "indoor": true,
-      "homepage": "https://artemuseum.com"
+      "homepage": "https://artemuseum.com",
+      "addr": "미디어아트 전시"
     }
+  ],
+  "regions": [
+    "서울",
+    "부산",
+    "강릉",
+    "제주"
   ]
 }

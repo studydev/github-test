@@ -4,16 +4,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>주말 어디갈까</title>
+  <meta name="description" content="지역과 날씨에 맞춰 이번 주말 갈 곳을 사진으로 골라 보세요.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-    <h1>주말 어디갈까</h1>
-    <p class="lead">지역을 고르면 가볼 만한 곳 3곳을 보여줘요.</p>
-    <div id="regions" class="regions" role="group" aria-label="지역"></div>
-    <label class="rain"><input type="checkbox" id="rainy"> ☔ 비 오는 날 (실내만)</label>
+    <header class="head">
+      <h1>주말 어디갈까</h1>
+      <p class="lead">지역과 날씨를 고르면 갈 만한 곳을 사진으로 보여 드려요.</p>
+    </header>
+
+    <section class="controls" aria-label="고르기">
+      <div class="group">
+        <span class="label" id="region-label">지역</span>
+        <div id="regions" class="chips" role="group" aria-labelledby="region-label"></div>
+      </div>
+      <div class="group">
+        <span class="label" id="filter-label">날씨</span>
+        <div id="filters" class="chips segmented" role="group" aria-labelledby="filter-label">
+          <button type="button" data-filter="전체">전체</button>
+          <button type="button" data-filter="실내">☔ 실내 (비 와도 OK)</button>
+          <button type="button" data-filter="실외">☀️ 실외 (날씨 좋은 날)</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="status">
+      <p id="count" aria-live="polite"></p>
+      <div class="status-actions">
+        <button type="button" id="more" class="ghost">다른 곳 보기 ↻</button>
+        <button type="button" id="share" class="ghost">이 목록 링크 복사</button>
+      </div>
+    </div>
+
     <ul id="cards" class="cards"></ul>
-    <p class="source" id="source"></p>
+
+    <footer class="foot">
+      <p id="source"></p>
+      <p id="credit"></p>
+    </footer>
   </main>
   <script src="app.js"></script>
 </body>
