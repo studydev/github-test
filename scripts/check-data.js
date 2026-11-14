@@ -18,6 +18,7 @@ places.forEach((p, i) => {
   }
   if (data.regions && !data.regions.includes(p.region)) bad.push(`${who} 의 지역 "${p.region}" 이 regions 목록에 없음`);
 });
+for (const r of data.regions || []) if (!places.some(p => p.region === r)) bad.push(`지역 "${r}" 에 장소가 하나도 없음`);
 if (bad.length) { console.error(bad.join('\n')); process.exit(1); }
 const regions = [...new Set(places.map(p => p.region))];
 console.log(`장소 ${places.length}곳 (${regions.join('·')}) 검사 통과`);
