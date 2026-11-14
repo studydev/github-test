@@ -37,14 +37,19 @@ async function api(operation, params) {
 }
 const call = params => api('areaBasedList2', {numOfRows: '30', pageNo: '1', arrange: 'Q', ...params});
 
-// 시·도 안에서 시·군 이름으로 lDongSignguCd 를 찾는다
-async function signguCode(lDongRegnCd, name) {
-  const items = await api('ldongCode2', {lDongRegnCd, numOfRows: '100', pageNo: '1'});
-  // 응답 항목 모양: {rnum, code, name} (예: {"code":"110","name":"춘천시"})
-  const hit = items.find(it => String(it.name ?? '').trim() === name);
-  const code = hit?.code;
-  if (!code) throw new Error(`${name} 의 시군구 코드를 찾지 못함 (응답 ${items.length}건, 항목 예: ${JSON.stringify(items[0] || {})})`);
-  return String(code);
+// 시·군 이름으로 시·도·시군구 법정동 코드를 찾는다. 응답 항목 모양: {rnum, code, name} (예: {"code":"110","name":"춘천시"})
+// 먼저 적어 둔 시·도에서 찾고, 없으면 모든 시·도를 뒤진다 (행정구역 개편으로 시·도 코드가 바뀐 경우 대비)
+async function findSigngu(lDongRegnCd, name) {
+  const inRegn = async regn => (await api('ldongCode2', {lDongRegnCd: regn, numOfRows: '100', pageNo: '1'})).find(it => String(it.name ?? '').trim() === name);
+  let hit = await inRegn(lDongRegnCd);
+  if (hit) return {lDongRegnCd, lDongSignguCd: String(hit.code)};
+  const sido = await api('ldongCode2', {numOfRows: '100', pageNo: '1'});
+  for (const s of sido) {
+    if (String(s.code) === lDongRegnCd) continue;
+    hit = await inRegn(String(s.code));
+    if (hit) return {lDongRegnCd: String(s.code), lDongSignguCd: String(hit.code), sidoName: s.name};
+  }
+  throw new Error(`${name} 의 법정동 코드를 찾지 못함 (시·도 ${sido.length}곳 확인)`);
 }
 
 const https = url => (url || '').replace(/^http:\/\//, 'https://');
@@ -59,7 +64,11 @@ function indoorOf(name, type) {
   const places = [], seen = new Set();
   for (const r of REGIONS) {
     const {region, signgu, ...area} = r;
-    if (signgu) { area.lDongSignguCd = await signguCode(area.lDongRegnCd, signgu); console.log(`${signgu} 시군구 코드: ${area.lDongSignguCd}`); }
+    if (signgu) {
+      const found = await findSigngu(area.lDongRegnCd, signgu);
+      Object.assign(area, {lDongRegnCd: found.lDongRegnCd, lDongSignguCd: found.lDongSignguCd});
+      console.log(`${signgu} 코드: 시·도 ${found.lDongRegnCd}${found.sidoName ? ` (${found.sidoName})` : ''}, 시군구 ${found.lDongSignguCd}`);
+    }
     for (const t of TYPES) {
       const items = await call({...area, contentTypeId: t.contentTypeId});
       let kept = 0;
