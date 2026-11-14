@@ -6,7 +6,7 @@ let places = [];
 function show(region) {
   for (const b of regionsEl.querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.region === region));
   const list = places.filter(p => p.region === region).slice(0, 3);
-  cardsEl.innerHTML = list.map(p => `<li><b>${p.name}</b><span>${p.desc}</span></li>`).join('');
+  cardsEl.innerHTML = list.map(p => `<li><b>${p.name}</b><span>${p.desc}</span> <a href="https://map.kakao.com/?q=${encodeURIComponent(p.name)}" target="_blank" rel="noopener">지도</a></li>`).join('');
 }
 
 fetch('data/places.json')
